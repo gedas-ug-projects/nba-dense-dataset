@@ -6,6 +6,7 @@ from annot_types import Bbox, Tracklet, ActionAnnotation, FrameAnnotation, Video
 
 
 def load_2d_player_positions(file_path: str) -> Dict[int, Tracklet]:
+    """"""
     tracklets = {}
     with open(file_path, 'r') as f:
         data = json.load(f)
