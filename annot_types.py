@@ -3,6 +3,29 @@ from pydantic import BaseModel, ValidationError, validator, field_validator
 from enum import Enum
 
 
+class Keypoints(BaseModel):
+    """
+    Object representing all keypoints for a single bbx.
+    133 total keypoints (COCO whole-body).
+    Annotations given by: https://github.com/jin-s13/COCO-WholeBody/blob/master/data_format.md
+    """
+    
+    # 17
+    keypoints: List[float, float, float]
+    
+    # 6
+    foot_keypoints: List[float, float, float]
+    
+    # 68
+    face_keypoints: List[float, float, float]
+    
+    # 21
+    left_hand_keypoints: List[float, float, float]
+    
+    # 21
+    right_hand_keypoints: List[float, float, float]
+
+
 class Bbox(BaseModel):
     """
     The bounding box of a player taken as a snapshot of a tracklet at a given frame.
@@ -17,6 +40,7 @@ class Bbox(BaseModel):
     width: float
     height: float
     confidence: float
+    keypoints: Optional[Keypoints]
 
 
 class Position(BaseModel):
@@ -46,7 +70,7 @@ class Moment(BaseModel):
     time_remaining_in_quarter: float
     time_remaining_on_shot_clock: Optional[float]
     player_positions: List[Position]
-
+    
 
 class Tracklet(BaseModel):
     """
